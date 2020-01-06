@@ -9,10 +9,11 @@ trigger:
 pool:
   vmImage: 'ubuntu-16.04'
 
-container: 
-  image: gluonmesh/build:latest
-  options: --user root
-  name: gluon-build
+resources:
+  containers: 
+  - container: build
+    image: gluonmesh/build:latest
+    options: --user root
 
 steps:
 - script: |
@@ -22,7 +23,7 @@ steps:
   workingDirectory: /gluon
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
-  target: gluon-build
+  target: build
 
 - script: |
     su gluon
@@ -30,4 +31,4 @@ steps:
     make GLUON_TARGET=ar71xx-generic
   workingDirectory: /gluon
   displayName: 'Building the firmware'
-  target: gluon-build
+  target: build
