@@ -25,7 +25,7 @@ steps:
 
 - script: |
     cd gluon
-    make update
+    make update GLUON_DEPRECATED=full
     make GLUON_TARGET=ar71xx-generic GLUON_DEPRECATED=full
   displayName: 'Building the firmware'
   target: build
