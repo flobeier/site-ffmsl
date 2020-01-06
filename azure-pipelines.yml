@@ -12,17 +12,21 @@ pool:
 container: 
   image: gluonmesh/build:latest
   options: --user root
+  name: gluon-build
 
 steps:
 - script: |
     su gluon
-    cd /gluon
     git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git /gluon
     git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git /gluon/site
+  workingDirectory: /gluon
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
-
+  target: gluon-build
+  
 - script: |
     make update
     make GLUON_TARGET=ar71xx-generic
+  workingDirectory: /gluon
   displayName: 'Building the firmware'
+  target: gluon-build
