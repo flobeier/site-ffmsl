@@ -23,8 +23,9 @@ steps:
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
   target: gluon-build
-  
+
 - script: |
+    su gluon
     make update
     make GLUON_TARGET=ar71xx-generic
   workingDirectory: /gluon
