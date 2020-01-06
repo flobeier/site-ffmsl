@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+container: gluonmesh/build:latest
+
+steps:
+- script: |
+    git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git /gluon
+    git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git /gluon/site
+  displayName: 'Cloning gluon and site repository'
+
+- script: |
+    make update
+    make GLUON_TARGET=ar71xx-generic
+  displayName: 'Building the firmware'
