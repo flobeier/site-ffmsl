@@ -16,14 +16,13 @@ container:
 
 steps:
 - script: |
-    su - gluon
-    whoami
-    git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git /gluon
-    git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git /gluon/site
+    git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git gluon
+    git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git gluon/site
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
 
 - script: |
-    make update GLUON_DEPRECATED=full
-    make GLUON_TARGET=ar71xx-generic GLUON_DEPRECATED=full
+    cd gluon
+    make update
+    make
   displayName: 'Building the firmware'
