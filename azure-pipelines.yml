@@ -9,23 +9,19 @@ trigger:
 pool:
   vmImage: 'ubuntu-16.04'
 
-resources:
-  containers: 
-  - container: build
+container: 
     image: gluonmesh/build:latest
     options: --user root
+    env: { GLUON_DEPRECATED: full, GLUON_TARGET: ar71xx-generic}
 
 steps:
 - script: |
-    git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git gluon
-    git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git gluon/site
+    git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git /gluon
+    git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git /gluon/site
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
-  target: build
 
 - script: |
-    cd gluon
     make update GLUON_DEPRECATED=full
     make GLUON_TARGET=ar71xx-generic GLUON_DEPRECATED=full
   displayName: 'Building the firmware'
-  target: build
