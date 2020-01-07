@@ -16,6 +16,8 @@ container:
 
 steps:
 - script: |
+    su - gluon
+    whoami
     git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git /gluon
     git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git /gluon/site
   displayName: 'Cloning gluon and site repository'
