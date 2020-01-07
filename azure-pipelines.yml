@@ -18,11 +18,11 @@ steps:
 - script: |
     git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git gluon
     git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git gluon/site
-    cd gluon
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
 
 - script: |
+    cd gluon
     make update
     echo "Starting the build"
     make
