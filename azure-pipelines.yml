@@ -22,9 +22,9 @@ steps:
   displayName: 'Cloning gluon and site repository'
   timeoutInMinutes: 5
 
-#- script: |
-#    cd gluon
-#    make update
-#    echo "Starting the build"
-#    make
-#  displayName: 'Building the firmware'
+- script: |
+    cd gluon
+    make update V=s
+    echo "Starting the build"
+    make
+  displayName: 'Building the firmware'
