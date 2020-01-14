@@ -28,3 +28,4 @@ steps:
     echo "Starting the build"
     make
   displayName: 'Building the firmware'
+  timeoutInMinutes: 360
