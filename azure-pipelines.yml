@@ -6,26 +6,24 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-16.04'
-
-container: 
+jobs:
+- job: firmware
+  timeoutInMinutes: 360
+  pool:
+    vmImage: 'ubuntu-16.04'
+  container: 
     image: gluonmesh/build:latest
     options: --user root
     env: { GLUON_DEPRECATED: full, GLUON_TARGET: ar71xx-generic}
 
-steps:
-- script: |
-    git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git gluon
-    git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git gluon/site
-    echo $GLUON_TARGET
-  displayName: 'Cloning gluon and site repository'
-  timeoutInMinutes: 5
-
-- script: |
-    cd gluon
-    make update V=s
-    echo "Starting the build"
-    make
-  displayName: 'Building the firmware'
-  timeoutInMinutes: 360
+  steps:
+  - bash: |
+      git clone --branch v2019.1 https://github.com/freifunk-gluon/gluon.git gluon
+      git clone --branch Domäne-01-v2019.1 https://github.com/FreiFunkMuenster/site-ffmsl.git gluon/site
+      echo $GLUON_TARGET
+    displayName: 'Cloning gluon and site repository'
+  - bash: |
+      cd gluon
+      make update
+      make V=s
+    displayName: 'Building the firmware'
